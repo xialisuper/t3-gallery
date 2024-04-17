@@ -1,38 +1,13 @@
 import Image from "next/image";
 import { db } from "~/server/db";
 
-// mock images urls
-const imagesUrls = [
-  "https://images.pexels.com/photos/3934192/pexels-photo-3934192.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-  "https://images.pexels.com/photos/3934192/pexels-photo-3934192.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-  "https://images.pexels.com/photos/3934192/pexels-photo-3934192.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-  "https://images.pexels.com/photos/3934192/pexels-photo-3934192.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
-];
-
-const images = imagesUrls.map((url, index) => ({
-  id: index,
-  url: url,
-}));
-
 export default async function HomePage() {
-  const selectResult = await db.query.posts.findMany();
+  // image数据库内容
+  const images = await db.query.images.findMany();
 
   return (
     <main>
       <div className="flex h-screen flex-col p-4">
-        <h1 className="text-3xl font-bold">Here is the list of posts</h1>
-        <ol>
-          {selectResult.map((post, index) => {
-            return (
-              <li key={index}>
-                {post.name +
-                  " create  at " +
-                  post.createdAt.toLocaleTimeString()}
-              </li>
-            );
-          })}
-        </ol>
-
         <h1 className="text-3xl font-bold">Welcome to my Gallery</h1>
 
         <p className="text-lg">
@@ -41,8 +16,15 @@ export default async function HomePage() {
         </p>
         <div className="flex flex-wrap gap-4">
           {images.map((image) => (
-            <div key={image.id} className="w-1/6">
-              <Image src={image.url} alt="Image" width={400} height={300} />
+            <div key={image.id} className="flex flex-col items-center gap-2">
+              <Image
+                src={image.url}
+                alt={image.name}
+                width={400}
+                height={300}
+                className="rounded-xl border border-gray-200 p-2"
+              />
+              <p>{image.name}</p>
             </div>
           ))}
         </div>
