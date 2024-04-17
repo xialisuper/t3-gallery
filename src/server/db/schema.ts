@@ -2,6 +2,8 @@
 // https://orm.drizzle.team/docs/sql-schema-declaration
 
 import { sql } from "drizzle-orm";
+// import { sql } from '@vercel/postgres';
+
 import {
   index,
   pgTableCreator,
