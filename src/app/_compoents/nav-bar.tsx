@@ -1,3 +1,4 @@
+import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
 import Link from "next/link";
 import React from "react";
 
@@ -7,16 +8,14 @@ export default function NavBar() {
       <Link href="/">
         <p className="text-xl font-bold">Gallery</p>
       </Link>
-      <div className="flex items-center">
-        <a
-          href="https://github.com/t3-oss/create-t3-app"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-gray-500 hover:text-gray-700"
-        >
-          GitHub
-        </a>
-      </div>
+      <SignedIn>
+        {/* Mount the UserButton component */}
+        <UserButton />
+      </SignedIn>
+      <SignedOut>
+        {/* Signed out users get sign in button */}
+        <SignInButton />
+      </SignedOut>
     </nav>
   );
 }

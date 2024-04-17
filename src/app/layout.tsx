@@ -1,5 +1,7 @@
+import "@uploadthing/react/styles.css";
 import "~/styles/globals.css";
 import React from "react";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import { Inter } from "next/font/google";
 import NavBar from "./_compoents/nav-bar";
@@ -21,11 +23,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>
-        <NavBar />
-        {children}
-      </body>
-    </html>
+    <ClerkProvider>
+      <html lang="en">
+        <body className={`font-sans ${inter.variable}`}>
+          <NavBar />
+          {children}
+        </body>
+      </html>
+    </ClerkProvider>
   );
 }
